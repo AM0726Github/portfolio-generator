@@ -1,36 +1,15 @@
+// Using node.js module file system by calling from app.js 
+const fs = require('fs');
+
+// Implementing generatepage method from source js file
+const generatePage = require('./src/page-template.js');
+
 const profileDataArgs = process.argv.slice(2);
 
-const printProfileData = profileDataArr => {
-  // This...
-  for (let i = 0; i < profileDataArr.length; i += 1) {
-    console.log(profileDataArr[i]);
-  }
+const [Name, github] = profileDataArgs;
 
-  console.log('================');
+fs.writeFile('index.html', generatePage(Name,github), err => {
+    if(err) throw err;
+    console.log('Portfolio complete! Check out index.html to see the output!');
+  });
 
-  // Is the same as this...
-  profileDataArr.forEach(profileItem => console.log(profileItem));
-};
-
-
-// var is function-scoped, so redeclaring it in a block will cause its value outside the block to change as well:
-
-var one = 'one: declared outside the block';
-
-if (true === true) {
-  var one = 'one: declared inside the block'; // notice: we redeclare 'one' here
-  console.log(one); // prints 'one: declared inside the block'
-}
-
-console.log(one); // also prints 'one: declared inside the block', because the variable was redeclared in the 'if' block. The outer 'var' variable was therefore destroyed and replaced by inner var variable.
-
-// 'let' is block-scoped, so redeclaring a 'let' variable inside of a block creates a different 'let' variable with the same name whose scope is inside the block:
-
-let two = 'two: declared outside the block';
-
-if (true === true) {
- two = 'two: declared inside the block';
-  console.log(two); // prints 'two: declared inside the block'
-}
-
-console.log(two); // prints 'two: declared outside the block', because two declared inside the block is a separate variable. The 'let' variables are unrelated and therefore are unaffected by each other.
