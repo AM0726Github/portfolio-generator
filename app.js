@@ -1,26 +1,15 @@
-const profileDataArgs = process.argv.slice(2, process.argv.length);
+// Using node.js module file system by calling from app.js 
+const fs = require('fs');
+
+// Implementing generatepage method from source js file
+const generatePage = require('./src/page-template.js');
+
+const profileDataArgs = process.argv.slice(2);
+
 const [Name, github] = profileDataArgs;
 
-console.log(Name, github);
+fs.writeFile('index.html', generatePage(Name,github), err => {
+    if(err) throw err;
+    console.log('Portfolio complete! Check out index.html to see the output!');
+  });
 
-
-const generatePage = (userName, githubName) => {
-    return `
-    <!DOCTYPE html> 
-    <html lang="en"> 
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Portfolio Demo</title>
-    </head>
-  
-    <body>
-      <h1>${Name}</h1>
-      <h2><a href="https://github.com/${github}">Github</a></h2>
-    </body>
-    </html>
-    `;
-  };
-
-console.log(generatePage(Name, github));
