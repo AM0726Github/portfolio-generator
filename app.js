@@ -1,8 +1,10 @@
 // Using node.js module file system by calling from app.js 
 const fs = require('fs');
 
-// Implementing generatepage method from source js file
+// Implementing generatepage method from source files
 const generatePage = require('./src/page-template.js');
+
+const inquirer = require('inquirer');
 
 const profileDataArgs = process.argv.slice(2);
 
